@@ -25,10 +25,13 @@ class ViewController: UIViewController {
     
     
     
+    @IBOutlet weak var outletSwitch: UISwitch!
+    
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var payButton: UIButton!
     
     
+    @IBOutlet weak var testLabel: UILabel!
     @IBOutlet weak var splitField: UITextField!
     
     @IBOutlet weak var splitStepper: UIStepper!
@@ -45,22 +48,54 @@ class ViewController: UIViewController {
         segOneLabel.layer.masksToBounds = true
         segTwoLabel.layer.masksToBounds = true
         segThreeLabel.layer.masksToBounds = true
+        testLabel.layer.masksToBounds = true
         
         payButton.layer.cornerRadius = 10.0
-        segOneLabel.layer.cornerRadius = 5.0
-        segTwoLabel.layer.cornerRadius = 5.0
-        segThreeLabel.layer.cornerRadius = 5.0
-        print ("line 30")
+        segOneLabel.layer.cornerRadius = 10.0
+        segTwoLabel.layer.cornerRadius = 10.0
+        segThreeLabel.layer.cornerRadius = 10.0
+        testLabel.layer.cornerRadius = 10.0
+        
     }
     
 
+
+    
     
     @IBAction func onTap(_ sender: Any) {
         view.endEditing(true)
         print ("line 36")
     }
     
+    
 
+    @IBAction func darkAction(_ sender: Any) {
+        switch traitCollection.userInterfaceStyle {
+        case .light:
+            if outletSwitch.isOn == true {
+                overrideUserInterfaceStyle = .dark
+                print ("overide to dark")
+            }
+        case .dark:
+            if outletSwitch.isOn == false {
+                overrideUserInterfaceStyle = .light
+                print ("overide to light")
+            }
+        case .unspecified:
+            print ("unspecififed")
+        }
+        
+        
+        
+        
+        
+        
+        /*
+ else {
+            overrideUserInterfaceStyle = .light
+        }*/
+    }
+    
 
     
     
@@ -69,10 +104,12 @@ class ViewController: UIViewController {
         let billPercentages = [0.1, 0.15, 0.2, (Double(customField.text!) ?? 0)]
         var tip = 0.0
         
+        
         if (billPercentages[tipControl.selectedSegmentIndex]) == billPercentages[3]{
-            
             print ("test")
             tip = billPercentages[3]
+            let test = tip
+            testLabel.text = String(format: "$%.2f", test)
             
         } else {
             tip = bill * billPercentages[tipControl.selectedSegmentIndex]
@@ -82,18 +119,13 @@ class ViewController: UIViewController {
         let segTwo = bill * billPercentages[1]
         let segThree = bill * billPercentages[2]
         
-        
-        /*if (customField.text! != "0") || (customField.text! != " "){
-            print ("58")
-            print ("customFieldText", customField.text!)
-            let tip = bill + amount
-        }*/
 
         let total = bill + tip
         
         segOneLabel.text = String(format: "$%.2f", segOne)
         segTwoLabel.text = String(format: "$%.2f", segTwo)
         segThreeLabel.text = String(format: "$%.2f", segThree)
+        
         
         tipLabel.text = String(format: "$%.2f", tip)
         totalLabel.text = String(format: "$%.2f", total)
