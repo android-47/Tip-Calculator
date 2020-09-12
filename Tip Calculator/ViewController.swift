@@ -28,6 +28,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var payButton: UIButton!
     
+    
+    @IBOutlet weak var splitField: UITextField!
+    
+    @IBOutlet weak var splitStepper: UIStepper!
+    
+    @IBAction func splitAction(_ sender: Any) {
+        splitField.text = String(format: "%.0f", splitStepper.value)
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
