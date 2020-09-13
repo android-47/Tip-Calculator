@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var counter = 0
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var customField: UITextField!
@@ -31,23 +32,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipControl: UISegmentedControl!
     
     
-    var counter = 0
-    
-    
-    @IBAction func splitAction(_ sender: Any) {
-        splitField.text = String(format: "%.0f", splitStepper.value)
-    }
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         roundCorners()
         billField.becomeFirstResponder()
-
-        
-        
+    }
+    
+    @IBAction func splitAction(_ sender: Any) {
+        splitField.text = String(format: "%.0f", splitStepper.value)
     }
     
     func roundCorners () {
@@ -86,7 +79,6 @@ class ViewController: UIViewController {
         }
         
     }
-        //let currencyLocale = [Locale.current, Locale(identifier: "fr_FR"), Locale(identifier: "de_DE")]
     
     @IBAction func darkAction(_ sender: Any) {
         if outletSwitch.isOn == true {
