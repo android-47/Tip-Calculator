@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var outletSwitch: UISwitch!
     @IBOutlet weak var splitStepper: UIStepper!
     @IBOutlet weak var tipControl: UISegmentedControl!
-    
+
     var counter = 0
     var segOne = 0.0
     var segTwo = 0.0
@@ -43,12 +43,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         roundCorners()
-        billField.becomeFirstResponder()
+        billField.becomeFirstResponder() // Keyboard visible at initial launch of app.
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        setBackground()
+        setBackground() // Sets dark/light mode at initial launch or when app opens from standby mode.
     }
     
     
@@ -70,10 +70,12 @@ class ViewController: UIViewController {
         switch traitCollection.userInterfaceStyle {
         case .light:
             if outletSwitch.isOn == true {
+                // If iPhone light mode is active but the switch is on, turn off the switch and animate/display off switch onto view.
                 outletSwitch.setOn(false, animated:true)
             }
         case .dark:
             if outletSwitch.isOn == false {
+                // If iPhone dark mode is active and the switch is off, turn on the switch and animate/display on switch onto view.
                 outletSwitch.setOn(true, animated:true)
             }
         case .unspecified:
@@ -81,6 +83,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Enables the switch on view to function properly when value is switched.
     @IBAction func darkAction(_ sender: Any) {
         if outletSwitch.isOn == true {
             overrideUserInterfaceStyle = .dark
@@ -91,6 +94,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func segmentAction(_ sender: Any) {
+        // When user switches segment, hide keyboard but enable it if segment is on Custom.
         view.endEditing(true)
         let billPercentages = [0.1, 0.15, 0.2, Double(customField.text!) ?? 0]
         if (billPercentages[tipControl.selectedSegmentIndex]) == billPercentages[3]{
@@ -102,22 +106,26 @@ class ViewController: UIViewController {
     @IBAction func splitAction(_ sender: Any) {
         resignFirstResponder()
         view.endEditing(true)
+        // Displays double value with no decimals
         splitField.text = String(format: "%.0f", splitStepper.value)
     }
     
+    // Tap anywhere to hide keyboard and firstResponder
     @IBAction func onTap(_ sender: Any) {
         resignFirstResponder()
         view.endEditing(true)
     }
     
-    
+
     @IBAction func currencyButton(_ sender: UIButton) {
         resignFirstResponder()
         view.endEditing(true)
         let arraySize = 4
-        if counter < arraySize{
+        if counter < arraySize {
+            // When button is pressed, currencyCountry is sorted through by 1 index.
             counter = counter + 1
         } else {
+            // User button title goes back to default (US) currency after sorting through entire list.
             counter = 0
         }
         self.sortCurrency()
@@ -125,25 +133,27 @@ class ViewController: UIViewController {
     
 
     
-
+    // Make sure labels are updated with appropriate currency.
     func sortCurrency(){
         var labelArray = [segOneLabel, segTwoLabel, segThreeLabel, customLabel, billLabel, tipLabel, totalLabel]
         let testArray = [segOne, segTwo, segThree, custom, bill, tip, total]
-        let currencyLocale = ["en_US", "fr_FR", "de_DE", "pt_BR", "en_UK"]
-        let currencyCountries = ["US", "FRA", "GER", "BRIT", "UK"]
+        let currencyLocale = ["en_US", "fr_FR", "de_DE", "pt_BR", "en_UK"] // String for currency based on country/
+        let currencyCountries = ["US", "FRA", "GER", "BRIT", "UK"] // Country name index corresponding to currency based on country.
         let currency = currencyLocale[counter]
         
         currencyButton.setTitle(currencyCountries[counter], for: .normal)
         
         var z = 0
+        // Less than 7 because the both arrays at the top of this function contain 7 elements each.
+        // Will use [z] to help sort through each element in both arrays.
         while z < 7 {
             let currencyFormatter = NumberFormatter()
             currencyFormatter.usesGroupingSeparator = true
-            currencyFormatter.numberStyle = .currency
-            //currencyFormatter.locale = Locale.current
-            currencyFormatter.locale = Locale(identifier: currency)
+            currencyFormatter.numberStyle = .currency // Turns 9000 into 9,000 or 9.000, depending on currency choice.
+            //currencyFormatter.locale = Locale.current // Use this code if want to disable choice of currency and enable currency based on location.
+            currencyFormatter.locale = Locale(identifier: currency) // currency is a string vale from currencyLocale.
             let priceString = currencyFormatter.string(from: NSNumber(value: testArray[z]))!
-            labelArray[z]?.text = priceString
+            labelArray[z]?.text = priceString // Same thing as segOneLabel.text = "9,000"
             z = z+1
         }
     }
@@ -151,30 +161,34 @@ class ViewController: UIViewController {
 
     
     @IBAction func calculateTip(_ sender: Any) {
+        // Element 4 is the value entered at customField and reads it as a Double.
         let billPercentages = [0.1, 0.15, 0.2, Double(customField.text!) ?? 0]
+        // Get bill amount
         bill = Double(billField.text!) ?? 0
         split = splitStepper.value
 
         if (billPercentages[tipControl.selectedSegmentIndex]) == billPercentages[3]{
-            tip = billPercentages[3]
+            tip = billPercentages[3] // Tip becomes equal to the value entered in custom field if the segment is placed on third segment (Custom).
             custom = tip
         } else {
-            tip = bill * billPercentages[tipControl.selectedSegmentIndex]
+            tip = bill * billPercentages[tipControl.selectedSegmentIndex] //
         }
-        
+        // Calculate tips for each segment, except Custom.
         segOne = bill * billPercentages[0]
         segTwo = bill * billPercentages[1]
         segThree = bill * billPercentages[2]
         
+        // Displays tip % based on bill.
         var tipPercent = 100*(tip/bill)
         let tipString = "% Tip"
         var testString = String(format: "%.0f", tipPercent)
+        // Useful if user types number in bill field and then deletes bill amount.
         if testString == "inf" || testString == "nan"{
             testString = "0"
             print ("test")
         }
         tipPercentLabel.text = testString + tipString
         total = (bill + tip)/split
-        sortCurrency()
+        sortCurrency() // Make sure labels are updated with appropriate currency.
     }
 }
