@@ -92,6 +92,11 @@ class ViewController: UIViewController {
         }
     }
     
+    // If user taps custom field then the segment travels to Custom so the user does not have to click twice.
+    @IBAction func customTap(_ sender: Any) {
+        tipControl.selectedSegmentIndex = 3
+    }
+    
     
     @IBAction func segmentAction(_ sender: Any) {
         // When user switches segment, hide keyboard but enable it if segment is on Custom.
@@ -101,7 +106,6 @@ class ViewController: UIViewController {
             customField.becomeFirstResponder()
         }
     }
-    
     
     @IBAction func splitAction(_ sender: Any) {
         resignFirstResponder()
