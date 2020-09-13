@@ -189,7 +189,6 @@ class ViewController: UIViewController {
         // Useful if user types number in bill field and then deletes bill amount.
         if testString == "inf" || testString == "nan"{
             testString = "0"
-            print ("test")
         }
         tipPercentLabel.text = testString + tipString
         total = (bill + tip)/split
