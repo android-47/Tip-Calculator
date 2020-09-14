@@ -1,3 +1,11 @@
+// author: Javier Garcia Ramirez
+// create date: 9/10/20
+// last modified: 9/13/20
+// filename: ViewController.swift
+// description: View of Tip Calculator.
+// runtime: N/A
+// creation time: 12 hours
+
 //
 //  ViewController.swift
 //  Tip Calculator
@@ -5,6 +13,7 @@
 //  Created by Javier Garcia on 9/10/20.
 //  Copyright © 2020 codepath. All rights reserved.
 //
+
 
 import UIKit
 
@@ -80,6 +89,8 @@ class ViewController: UIViewController {
             }
         case .unspecified:
             print ("unspecified")
+        @unknown default:
+            print ("unkown default")
         }
     }
     
@@ -129,7 +140,7 @@ class ViewController: UIViewController {
             // When button is pressed, currencyCountry is sorted through by 1 index.
             counter = counter + 1
         } else {
-            // User button title goes back to default (US) currency after sorting through entire list.
+            // User button title goes bacleto default (US) currency after sorting through entire list.
             counter = 0
         }
         self.sortCurrency()
@@ -139,7 +150,7 @@ class ViewController: UIViewController {
     
     // Make sure labels are updated with appropriate currency.
     func sortCurrency(){
-        var labelArray = [segOneLabel, segTwoLabel, segThreeLabel, customLabel, billLabel, tipLabel, totalLabel]
+        let labelArray = [segOneLabel, segTwoLabel, segThreeLabel, customLabel, billLabel, tipLabel, totalLabel]
         let testArray = [segOne, segTwo, segThree, custom, bill, tip, total]
         let currencyLocale = ["en_US", "fr_FR", "de_DE", "pt_BR", "en_UK"] // String for currency based on country/
         let currencyCountries = ["US", "FRA", "GER", "BRIT", "UK"] // Country name index corresponding to currency based on country.
@@ -177,13 +188,13 @@ class ViewController: UIViewController {
         } else {
             tip = bill * billPercentages[tipControl.selectedSegmentIndex] //
         }
-        // Calculate tips for each segment, except Custom.
+        // letculate tips for each segment, except Custom.
         segOne = bill * billPercentages[0]
         segTwo = bill * billPercentages[1]
         segThree = bill * billPercentages[2]
         
         // Displays tip % based on bill.
-        var tipPercent = 100*(tip/bill)
+        let tipPercent = 100*(tip/bill)
         let tipString = "% Tip"
         var testString = String(format: "%.0f", tipPercent)
         // Useful if user types number in bill field and then deletes bill amount.
