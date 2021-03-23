@@ -2,33 +2,25 @@
 
 **Tip Calculator** is a tip calculator application for iOS.
 
-Submitted by: **Javier Garcia Ramirez**
+By: **Javier Garcia Ramirez**
 
 Time spent: **12** hours spent in total
 
 ## User Stories
 
-The following **required** functionality is complete:
+Features are implemented:
 
 * [X] User can enter a bill amount, choose a tip percentage, and see the tip and total values.
 * [X] User can select between tip percentages by tapping different values on the segmented control and the tip value is updated accordingly
-
-The following **optional** features are implemented:
-
-* [ ] UI animations
-* [ ] Remembering the bill amount across app restarts (if <10mins)
 * [X] Using locale-specific currency and currency thousands separators.
 * [X] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
 
-The following **additional** features are implemented:
-
-- [X] List anything else that you can get done to improve the app functionality!
-* Added a button to sort through different currencies.
-* Added dark mode switch and configured it with iPhone settings.
-* Added a Custom tip amount.
-* Added a % of tip that is compatible with the Custom feature.
-* Added a stepper to allow the user to split the bill.
-* Added app icon.
+* [X] Added a button to sort through different currencies.
+* [X] Added dark mode switch and configured it with iPhone settings.
+* [X] Added a Custom tip amount.
+* [X] Added a % of tip that is compatible with the Custom feature.
+* [X] Added a stepper to allow the user to split the bill.
+* [X] Added app icon.
 
 ## My gifs
 ### Part 1: Bill Field, Currency Button, And Dark Mode Switch
@@ -38,7 +30,7 @@ The following **additional** features are implemented:
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Challenges encountered while building the app.
 
 * Setting dark mode feature and syncing it with dark more from iPhone setting.
 * Dealing with constraits so the view is scaled to every device and orientation mode.
